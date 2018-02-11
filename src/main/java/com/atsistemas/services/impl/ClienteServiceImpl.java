@@ -35,12 +35,11 @@ public class ClienteServiceImpl implements ClienteService {
 		//Mapping the relationship between clientes and comerciales
 		Comercial comercial = comercialRepository.findOne(cliente.getComercial().getId());
 		
+		//Persisting
+		comercial.getClientes().add(cliente);
+		//comercialRepository.save(comercial);
 		cliente.setComercial(comercial);
 		Cliente persistedCliente = clienteRepository.save(cliente);
-		
-		//Persisting
-		comercial.getClientes().add(persistedCliente);
-		comercialRepository.save(comercial);
 		
 		return persistedCliente;
 	}

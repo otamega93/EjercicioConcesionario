@@ -40,7 +40,7 @@ public class FacturaServiceImpl implements FacturaService {
 		Pedido pedido = pedidoService.findById(factura.getPedido().getId());
 		
 		factura.setPedido(pedido);
-		//Seems like it persist the factura into the pedido all magically. If necessary:
+		//it persist the factura into the pedido all magically (more like because of the bidirectional relationship):
 		//pedido.setFactura(factura); 
 		System.out.println("GET FACTURA:" + pedido.getFactura());
 		factura.setTotal(400.6);

@@ -66,14 +66,14 @@ public class PedidoServiceImpl implements PedidoService {
 		// Now, the mapping
 		if (null != cliente) {
 			cliente.getPedidos().add(pedido);
-			clienteRepository.save(cliente);
+			//clienteRepository.save(cliente);
 		}
 		else 
 			return null;
 
 		if (null != comercial) {
 			comercial.getPedidos().add(pedido);
-			comercialRepository.save(comercial);
+			//comercialRepository.save(comercial);
 		}
 		else
 			return null;
