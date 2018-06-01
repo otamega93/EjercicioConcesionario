@@ -62,6 +62,19 @@ public class PedidoServiceImpl implements PedidoService {
 		Cliente cliente = clienteRepository.findOne(pedido.getCliente().getId());
 		Comercial comercial = comercialRepository.findOne(pedido.getComercial().getId());
 		Estado estado = estadoRepository.findOne(pedido.getEstado().getId());
+		
+		// Obtenemos los coches	
+		List<Vehiculo> vehiculos = pedido.getVehiculos();
+		
+		List<Vehiculo> vehiculosConsultados = new ArrayList<>();
+		
+		if (null != vehiculos && !vehiculos.isEmpty()) {
+
+			for (Vehiculo vehiculo : vehiculos) {
+
+				vehiculosConsultados.add(vehiculoRepository.findOne(vehiculo.getId()));
+			}
+		}
 
 		// Now, the mapping
 		if (null != cliente) {
@@ -89,6 +102,7 @@ public class PedidoServiceImpl implements PedidoService {
 		pedido.setFecha(LocalDateTime.now());
 		pedido.setCliente(cliente);
 		pedido.setComercial(comercial);
+		pedido.setVehiculos(vehiculosConsultados);
 
 		return pedidoRepository.save(pedido);
 	}
