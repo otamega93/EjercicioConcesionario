@@ -48,13 +48,13 @@ public class VehiculoServiceImpl implements VehiculoService {
 
 	@Override
 	public Vehiculo findById(Long id) {
-		return vehiculoRepository.findOne(id);
+		return vehiculoRepository.findOneById(id);
 	}
 
 	@Transactional(readOnly=false)
 	@Override
 	public boolean delete(Long id) {
-		vehiculoRepository.delete(id);
+		vehiculoRepository.deleteById(id);
 		return true;
 	}
 

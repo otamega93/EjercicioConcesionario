@@ -33,7 +33,7 @@ public class ClienteServiceImpl implements ClienteService {
 	public Cliente save(Cliente cliente) {
 		
 		//Mapping the relationship between clientes and comerciales
-		Comercial comercial = comercialRepository.findOne(cliente.getComercial().getId());
+		Comercial comercial = comercialRepository.findOneById(cliente.getComercial().getId());
 		
 		//Persisting
 		comercial.getClientes().add(cliente);
@@ -63,13 +63,13 @@ public class ClienteServiceImpl implements ClienteService {
 	
 	@Override
 	public Cliente findById(Long id) {
-		return clienteRepository.findOne(id);
+		return clienteRepository.findOneById(id);
 	}
 
 	@Transactional(readOnly=false)
 	@Override
 	public boolean delete(Long id) {
-		clienteRepository.delete(id);
+		clienteRepository.deleteById(id);
 		return true;
 	}
 

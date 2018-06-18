@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,13 +49,13 @@ public class ComercialServiceImpl implements ComercialService {
 
 	@Override
 	public Comercial findById(Long id) {
-		return comercialRepository.findOne(id);
+		return comercialRepository.findOneById(id);
 	}
 
 	@Transactional(readOnly=false)
 	@Override
 	public boolean delete(Long id) {
-		comercialRepository.delete(id);
+		comercialRepository.deleteById(id);
 		return true;
 	}
 

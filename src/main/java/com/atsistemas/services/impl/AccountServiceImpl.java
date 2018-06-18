@@ -54,7 +54,7 @@ public class AccountServiceImpl implements AccountService {
 	@Transactional(readOnly=false)
 	public boolean delete(Long id) {
 		if (null!= id) {
-			accountRepository.delete(id);
+			accountRepository.deleteById(id);
 			return true;
 		}
 		else {

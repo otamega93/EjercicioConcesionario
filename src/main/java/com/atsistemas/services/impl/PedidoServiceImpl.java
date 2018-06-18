@@ -59,9 +59,9 @@ public class PedidoServiceImpl implements PedidoService {
 	public Pedido generatePackage(Pedido pedido) {
 		// Getting all the objects related to pedido and setting them in order
 		// to map
-		Cliente cliente = clienteRepository.findOne(pedido.getCliente().getId());
-		Comercial comercial = comercialRepository.findOne(pedido.getComercial().getId());
-		Estado estado = estadoRepository.findOne(pedido.getEstado().getId());
+		Cliente cliente = clienteRepository.findOneById(pedido.getCliente().getId());
+		Comercial comercial = comercialRepository.findOneById(pedido.getComercial().getId());
+		Estado estado = estadoRepository.findOneById(pedido.getEstado().getId());
 		
 		// Obtenemos los coches	
 		List<Vehiculo> vehiculos = pedido.getVehiculos();
@@ -72,7 +72,7 @@ public class PedidoServiceImpl implements PedidoService {
 
 			for (Vehiculo vehiculo : vehiculos) {
 
-				vehiculosConsultados.add(vehiculoRepository.findOne(vehiculo.getId()));
+				vehiculosConsultados.add(vehiculoRepository.findOneById(vehiculo.getId()));
 			}
 		}
 
@@ -126,7 +126,7 @@ public class PedidoServiceImpl implements PedidoService {
 
 	@Override
 	public Pedido findById(Long id) {
-		return pedidoRepository.findOne(id);
+		return pedidoRepository.findOneById(id);
 	}
 
 	@Transactional(readOnly = false)
@@ -139,11 +139,11 @@ public class PedidoServiceImpl implements PedidoService {
 	@Transactional(readOnly = false)
 	@Override
 	public Pedido receivePackage(Long id) {
-		Pedido pedido = pedidoRepository.findOne(id);
+		Pedido pedido = pedidoRepository.findOneById(id);
 
 		if (pedido.getId() != null) {
 			pedido.setId(pedido.getId());
-			pedido.setEstado(estadoRepository.findOne(1L));
+			pedido.setEstado(estadoRepository.findOneById(1L));
 
 			// method to generate the invoice
 			//Factura factura = facturaService.GenerateInvoice(factura);

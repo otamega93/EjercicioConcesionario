@@ -9,4 +9,6 @@ import com.atsistemas.entities.Account;
 public interface AccountRepository extends PagingAndSortingRepository<Account, Long>{
 
 	public Account findByUsername(String username);
+	
+	public void deleteById(Long id);
 }

@@ -6,4 +6,7 @@ import com.atsistemas.entities.Pedido;
 
 public interface PedidoRepository extends PagingAndSortingRepository<Pedido, Long> {
 
+	public void deleteById(Long id);
+	
+	public Pedido findOneById(Long id); 
 }

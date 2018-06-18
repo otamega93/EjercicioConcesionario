@@ -11,14 +11,18 @@ import org.springframework.session.web.http.CookieSerializer;
 import org.springframework.session.web.http.DefaultCookieSerializer;
 
 import com.hazelcast.config.Config;
+import com.hazelcast.config.JoinConfig;
 import com.hazelcast.config.MapAttributeConfig;
 import com.hazelcast.config.MapIndexConfig;
+import com.hazelcast.config.NetworkConfig;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 
 @EnableHazelcastHttpSession
 @Configuration
 public class SessionConfiguration {
+	
+	private static int PORT_NUMBER = 5072;
 
 	@Bean
 	public HazelcastInstance hazelcastInstance() {
@@ -31,6 +35,15 @@ public class SessionConfiguration {
 		config.getMapConfig("spring:session:sessions").addMapAttributeConfig(attributeConfig)
 				.addMapIndexConfig(new MapIndexConfig(HazelcastSessionRepository.PRINCIPAL_NAME_ATTRIBUTE, false));
 
+		NetworkConfig network = config.getNetworkConfig();
+		network.setPort(PORT_NUMBER);
+		
+		JoinConfig join = network.getJoin();
+
+		join.getMulticastConfig().setEnabled(false);
+		
+		join.getTcpIpConfig().addMember("127.0.0.1:5072").addMember("127.0.0.1:5071").setRequiredMember(null).setEnabled(true);
+		
 		return Hazelcast.newHazelcastInstance(config);
 	}
 
